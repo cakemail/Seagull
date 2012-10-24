@@ -3,12 +3,12 @@
 /**
  * 
  */
-class Config
+class Pathfinder
 {
-	protected $separator = '.';
+    protected $separator = '.';
 
-	/** the complete configuration array */
-	protected $config = array();
+    /** the complete configuration array */
+    protected $config = array();
 
     /**
      * Recursive function to get an element from, or set an element in the config by its path
@@ -39,9 +39,9 @@ class Config
 
         if(isset($conf[$first])) {
 
-        	// there's more left on the path, keep following it
+            // there's more left on the path, keep following it
             if(count($path)) {
-            	goto recurse;
+                goto recurse;
             }
 
             if($newValue !== null) {
@@ -49,12 +49,12 @@ class Config
             }
             return $conf[$first];
         } elseif($newValue !== null) {
-        	// a new piece of path, create it
-        	if(count($path)) {
-		    	$conf[$first] = array();
-		    	goto recurse;
-        	}
-        	return $conf[$first] = $newValue;
+            // a new piece of path, create it
+            if(count($path)) {
+                $conf[$first] = array();
+                goto recurse;
+            }
+            return $conf[$first] = $newValue;
         }
 
         return null;
@@ -95,6 +95,6 @@ class Config
 
     public function store()
     {
-    	// comimg soon :-)
+        // comimg soon :-)
     }
 }
