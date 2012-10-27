@@ -1,9 +1,9 @@
 <?php
 
 /**
- * 
+ *
  */
-class Pathfinder
+class Seagull
 {
     protected $separator = '.';
 
@@ -91,6 +91,14 @@ class Pathfinder
     public function set($path, $value)
     {
         return $this->conf($path, $this->config, $value);
+    }
+
+    public function setSeparator($sep = '.')
+    {
+        if(is_string($sep) && strlen($sep) == 1) {
+            $this->separator = $sep;
+        }
+        return $this;
     }
 
     public function store()
