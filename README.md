@@ -23,7 +23,7 @@ $values = array(
 
 $config = new Seagull($values);
 
-// values can also be set, or added, like this:
+// values can also be set, or added, using the setter:
 $config->set('db.default.user', 'root');
 
 // or, take a route to halfway, and the rest with an array:
