@@ -5,10 +5,18 @@
  */
 class Seagull
 {
-    protected $separator = '.';
+    protected $separator;
 
     /** the complete configuration array */
     protected $config = array();
+
+    public function __construct($data = array(), $separator = '.')
+    {
+        $this->separator = $separator;
+        if(is_array($data)) {
+            $this->config = $data;
+        }
+    }
 
     /**
      * Recursive function to get an element from, or set an element in the config by its path
@@ -43,10 +51,14 @@ class Seagull
             if(count($path)) {
                 goto recurse;
             }
-
-            if($newValue !== null) {
+            
+            if($newValue == '[[seagull-delete]]') {
+                // for deleting values
+                unset($conf[$first]);
+            } elseif($newValue !== null) {
                 $conf[$first] = $newValue;
             }
+
             return $conf[$first];
         } elseif($newValue !== null) {
             // a new piece of path, create it
@@ -90,7 +102,14 @@ class Seagull
      */
     public function set($path, $value)
     {
-        return $this->conf($path, $this->config, $value);
+        $this->conf($path, $this->config, $value);
+        return $this;
+    }
+
+    public function delete($path)
+    {
+        $this->conf($path, $this->config, '[[seagull-delete]]');
+        return $this;
     }
 
     public function setSeparator($sep = '.')
@@ -99,10 +118,5 @@ class Seagull
             $this->separator = $sep;
         }
         return $this;
-    }
-
-    public function store()
-    {
-        // comimg soon :-)
     }
 }
