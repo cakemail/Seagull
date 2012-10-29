@@ -13,7 +13,7 @@ class Seagull
     public function __construct($data = array(), $separator = '.')
     {
         $this->separator = $separator;
-        if(is_array($data)) {
+        if(!empty($data)) {
             $this->config = $data;
         }
     }
