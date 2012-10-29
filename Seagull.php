@@ -52,9 +52,10 @@ class Seagull
                 goto recurse;
             }
             
-            if($newValue == '[[seagull-delete]]') {
+            if($newValue === '[[seagull-delete]]') {
                 // for deleting values
                 unset($conf[$first]);
+                return;
             } elseif($newValue !== null) {
                 $conf[$first] = $newValue;
             }
