@@ -5,11 +5,24 @@
  */
 class Seagull
 {
+    /**
+     * The separator to use for paths
+     */
     protected $separator;
 
-    /** the complete configuration array */
+    /**
+     * the complete configuration array
+     */
     protected $config = array();
 
+    /** 
+     * Constructor
+     *
+     * @param array $data
+     *    default configuration
+     * @param string $separator
+     *    the separator to use for paths
+     */
     public function __construct($data = array(), $separator = '.')
     {
         $this->separator = $separator;
@@ -37,12 +50,8 @@ class Seagull
 
         if(!$path) return $this->config;
 
-
         $sep = $this->separator;
-
-
         $path = explode($sep, $path);
-
         $first = array_shift($path);
 
         if(isset($conf[$first])) {
@@ -76,6 +85,45 @@ class Seagull
         return $this->conf(implode($sep, $path), $conf[$first], $newValue); // <--- RECURSE!!!
     }
 
+
+    /**
+     * Merge override values into the default config
+     *
+     * @param array $merge
+     *    the array to merge into the defaults
+     * @param array $config
+     *    optional, only needed to recurse
+     *
+     * @return array
+     *    the original config, with the new values merged into it
+     */
+    protected function doMerge(array $merge, $config = null)
+    {
+        $config = $config !== null ? $config : $this->config;
+
+        foreach($merge as $key => $value) {
+            $config[$key] = array_key_exists($key, $config) && is_array($value)
+                ? $this->doMerge($merge[$key], $config[$key]) // <--- RECURSE!!!
+                : $value;
+        }
+        return $config;
+    } 
+
+    /**
+     * Merge override values into the default config
+     *
+     * @param array $merge
+     *    the array to merge into the defaults
+     *
+     * @return Seagull
+     *    the current instance, for chaining
+     */
+    public function merge($merge)
+    {
+        $this->config = $this->doMerge($merge);
+        return $this;
+    }
+
     /**
      * Get a value from the config, from a specific path.
      *
@@ -98,8 +146,8 @@ class Seagull
      * @param mixed $newValue (optional)
      *    the new value to set in the config on the specified path
      *
-     * @return mixed
-     *    the value found in the config at the specified path, or null if the path doesn't exist
+     * @return Seagull
+     *    the current instance, for chaining
      */
     public function set($path, $value)
     {
@@ -107,17 +155,18 @@ class Seagull
         return $this;
     }
 
+    /**
+     * Delete a value on a path
+     *
+     * @param string $path
+     *    the path to remove from the config
+     *
+     * @return Seagull
+     *    the current instance, for chaining
+     */
     public function delete($path)
     {
         $this->conf($path, $this->config, '[[seagull-delete]]');
-        return $this;
-    }
-
-    public function setSeparator($sep = '.')
-    {
-        if(is_string($sep) && strlen($sep) == 1) {
-            $this->separator = $sep;
-        }
         return $this;
     }
 }
