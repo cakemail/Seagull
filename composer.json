@@ -1,3 +1,4 @@
 {
-    "name": "wkjagt/seagull"
+    "name": "wkjagt/seagull",
+    "description": "Tree like configuration manager"
 }
