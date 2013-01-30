@@ -3,5 +3,10 @@
     "description": "Tree like configuration manager",
     "type": "library",
     "keywords": ["config","configuration"],
-    "license": "MIT"
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {
+            "Seagull": ""
+        }
+    }
 }
