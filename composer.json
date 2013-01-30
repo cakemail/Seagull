@@ -1,4 +1,7 @@
 {
     "name": "wkjagt/seagull",
-    "description": "Tree like configuration manager"
+    "description": "Tree like configuration manager",
+    "type": "library",
+    "keywords": ["config","configuration"],
+    "license": "MIT"
 }
