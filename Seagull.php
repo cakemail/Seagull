@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Configuration helper. Stores configurations on paths.
+ */
 class Seagull
 {
     /**
