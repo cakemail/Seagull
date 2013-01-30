@@ -5,7 +5,8 @@ First, this is called Seagull, a very far fetched reference to a seagull interse
 
 ### Settings on intersections
 
-This is a tiny library to help you out with your settings. The way it works is best explained with an example.
+This is a tiny library to help you out with your settings and let's you access them with a syntax
+that resembles the use of namespaces. The way it works is best explained with an example.
 Start by adding settings to a new object. This can be done in several ways.
 
 ```php
