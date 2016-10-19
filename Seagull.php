@@ -57,7 +57,7 @@ class Seagull
 
             // there's more left on the path, keep following it
             if(count($path)) {
-                goto recurse;
+                return $this->conf(implode($sep, $path), $conf[$first], $newValue); // <--- RECURSE!!!
             }
             
             if($newValue === '[[seagull-delete]]') {
@@ -79,9 +79,6 @@ class Seagull
         }
 
         return null;
-
-        recurse:
-        return $this->conf(implode($sep, $path), $conf[$first], $newValue); // <--- RECURSE!!!
     }
 
 
